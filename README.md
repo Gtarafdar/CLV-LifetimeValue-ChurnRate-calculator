@@ -1,3 +1,5 @@
+This is CLV calculator for your product. 
+Here is the disclaimer of the landing page fields.
 "Initial Number of Users": This refers to the total number of users at the beginning of a specific period. It represents the starting point from which the churn rate will be calculated.
 
 "Final Number of Users": This refers to the total number of users at the end of the same specific period. It represents the number of users remaining after a certain period, usually a year.
