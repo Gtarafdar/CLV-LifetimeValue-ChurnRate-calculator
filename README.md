@@ -4,7 +4,7 @@
 
 "x" in this context: represents the monetary value of the product on a yearly basis, and the calculated CLV is a multiple of that yearly value, indicating the expected total value generated from a single customer over their lifetime.
 
-Reference: Calculate CLV
+Reference: Calculate CLV - https://deluxeblogtips.com/calculate-clv/
 
 Example of what data you have to input in churn rate calculator field: If you have a year-to-year subscription model and want to calculate the churn rate, you can still use the same approach. Here's how you can do it:
 
@@ -25,4 +25,4 @@ So, if you're calculating the churn rate for a specific period, such as a year, 
 By comparing the initial and final numbers of users within the same period, you can calculate the churn rate for that specific period. This allows you to understand the percentage of users who did not renew their subscription from the beginning to the end of the period.
 
 
-Reference: Calculation break down
+Reference: Calculation break down - https://ibb.co/FHpHyzf
