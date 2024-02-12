@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer Lifetime Value & Churn Rate Calculator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        background-color: #f4f4f4;
+      }
+
+      .container {
+        max-width: 500px;
+        padding: 60px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .input-container {
+        margin-bottom: 15px;
+      }
+
+      input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      .result {
+        margin-top: 20px;
+        font-weight: bold;
+      }
+
+      small {
+        color: #888;
+      }
+
+      /* Accordion style */
+      .accordion {
+        background-color: #f4f4f4;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        text-align: left;
+        border: none;
+        outline: none;
+        transition: 0.4s;
+      }
+
+      .active,
+      .accordion:hover {
+        background-color: #ccc;
+      }
+
+      .panel {
+        padding: 0 18px;
+        display: none;
+        background-color: white;
+        overflow-y: auto; /* Enable vertical scrolling */
+        max-height: 300px; /* Set maximum height for the panel */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Customer Lifetime Value & Churn Rate Calculator</h1>
+      <button class="accordion">Infotips</button>
+      <div class="panel">
+        <p>
+          <strong>"Initial Number of Users":</strong> This refers to the total
+          number of users at the beginning of a specific period. It represents
+          the starting point from which the churn rate will be calculated.
+        </p>
+        <p>
+          <strong>"Final Number of Users":</strong> This refers to the total
+          number of users at the end of the same specific period. It represents
+          the number of users remaining after a certain period, usually a year.
+        </p>
+        <p>
+          <strong>"x" in this context:</strong> represents the monetary value of
+          the product on a yearly basis, and the calculated CLV is a multiple of
+          that yearly value, indicating the expected total value generated from
+          a single customer over their lifetime.
+        </p>
+        <p>
+          <strong>Reference:</strong>
+          <a href="https://deluxeblogtips.com/calculate-clv/" target="_blank"
+            >Calculate CLV</a
+          >
+        </p>
+        <p>
+          <strong
+            >Example of what data you have to input in churn rate calculator
+            field:</strong
+          >
+          If you have a year-to-year subscription model and want to calculate
+          the churn rate, you can still use the same approach. Here's how you
+          can do it:
+          <br />
+          <br />
+          <strong>Initial Number of Users:</strong> This refers to the total
+          number of users at the beginning of a specific year. For example, if
+          you're calculating the churn rate for the year 2023, you'd input the
+          total number of users you had at the beginning of 2023.
+          <br />
+          <br />
+          <strong>Final Number of Users:</strong> This refers to the total
+          number of users at the end of the same specific year. For example, if
+          you're calculating the churn rate for the year 2023, you'd input the
+          total number of users you had at the end of 2023.
+          <br />
+          <br />
+          By comparing the initial and final numbers of users within the same
+          year, you can calculate the churn rate for that specific year. This
+          allows you to understand the percentage of users who did not renew
+          their subscription from the beginning to the end of the year.
+        </p>
+        <br />
+        <p>
+          <strong
+            >Which Number should I input in the final number field?</strong
+          >
+        </p>
+        <br />
+        <p>
+          In the churn rate calculator, the "Initial Number of Users" refers to
+          the total number of users at the beginning of a specific period (e.g.,
+          a year), and the "Final Number of Users" refers to the total number of
+          users at the end of the same specific period.
+          <br />
+          <br />
+          So, if you're calculating the churn rate for a specific period, such
+          as a year, you would input the total number of users you had at the
+          beginning of that year as the initial number of users, and the total
+          number of users you had at the end of that year,
+          <strong>after renewals, as the final number of users.</strong>
+          <br />
+          <br />
+          By comparing the initial and final numbers of users within the same
+          period, you can calculate the churn rate for that specific period.
+          This allows you to understand the percentage of users who did not
+          renew their subscription from the beginning to the end of the period.
+        </p>
+        <br />
+        <p>
+          <strong>Reference:</strong>
+          <a href="https://ibb.co/FHpHyzf" target="_blank"
+            >Calculation break down</a
+          >
+        </p>
+      </div>
+      <div id="clvCalculator">
+        <h2>Customer Lifetime Value Calculator</h2>
+        <div class="input-container">
+          <label for="clvYearlyPrice">Yearly Price of the Product:</label>
+          <input
+            type="number"
+            id="clvYearlyPrice"
+            placeholder="Enter yearly price..."
+          />
+          <small>Note: Enter the yearly price of your product.</small>
+        </div>
+        <div class="input-container">
+          <label for="clvChurnRate">Churn Rate (%):</label>
+          <input
+            type="number"
+            id="clvChurnRate"
+            placeholder="Enter churn rate..."
+          />
+          <small
+            >Note: Enter the churn rate percentage (e.g., 20 for 20%).</small
+          >
+        </div>
+        <button onclick="calculateCLV()">Calculate CLV</button>
+        <div id="clvResult" class="result"></div>
+      </div>
+      <div id="churnRateCalculator">
+        <h2>Churn Rate Calculator</h2>
+        <div class="input-container">
+          <label for="crInitialUsers">Initial Number of Users:</label>
+          <input
+            type="number"
+            id="crInitialUsers"
+            placeholder="Enter initial number of users..."
+          />
+          <small
+            >Note: Enter the initial number of users at the beginning of the
+            period.</small
+          >
+        </div>
+        <div class="input-container">
+          <label for="crFinalUsers">Final Number of Users:</label>
+          <input
+            type="number"
+            id="crFinalUsers"
+            placeholder="Enter final number of users..."
+          />
+          <small
+            >Note: Enter the final number of users at the end of the
+            period.</small
+          >
+        </div>
+        <button onclick="calculateChurnRate()">Calculate Churn Rate</button>
+        <div id="churnRateResult" class="result"></div>
+      </div>
+      <div id="approximatePriceCalculator">
+        <h2>Approximate Yearly Price Calculator</h2>
+        <div class="input-container">
+          <label for="clvApprox">Approximate CLV (in terms of 'x'):</label>
+          <input
+            type="number"
+            id="clvApprox"
+            placeholder="Enter approximate CLV..."
+          />
+          <small
+            >Note: Enter the approximate CLV to calculate the yearly
+            price.</small
+          >
+        </div>
+        <button onclick="calculateApproximateYearlyPrice()">
+          Calculate Yearly Price
+        </button>
+        <div id="approximatePriceResult" class="result"></div>
+      </div>
+      <div id="lifetimePlanCalculator">
+        <h2>Lifetime Plan Price Calculator</h2>
+        <div class="input-container">
+          <label for="lpYearlyPrice">Yearly Price of the Product:</label>
+          <input
+            type="number"
+            id="lpYearlyPrice"
+            placeholder="Enter yearly price..."
+          />
+          <small>Note: Enter the yearly price of your product.</small>
+        </div>
+        <button onclick="calculateLifetimePlanPrice()">
+          Calculate Lifetime Plan Price
+        </button>
+        <div id="lifetimePlanResult" class="result"></div>
+      </div>
+    </div>
+    <script>
+      // CLV Calculator
+      function calculateCLV() {
+        var yearlyPrice = parseFloat(
+          document.getElementById("clvYearlyPrice").value
+        );
+        var churnRate = parseFloat(
+          document.getElementById("clvChurnRate").value
+        );
+
+        if (isNaN(yearlyPrice) || isNaN(churnRate)) {
+          document.getElementById("clvResult").innerHTML =
+            "Please enter valid input.";
+          return;
+        }
+
+        var clv = yearlyPrice / (churnRate / 100);
+        document.getElementById("clvResult").innerHTML =
+          "Customer Lifetime Value: " + clv.toFixed(2) + "x";
+      }
+
+      // Churn Rate Calculator
+      function calculateChurnRate() {
+        var initialUsers = parseFloat(
+          document.getElementById("crInitialUsers").value
+        );
+        var finalUsers = parseFloat(
+          document.getElementById("crFinalUsers").value
+        );
+
+        if (
+          isNaN(initialUsers) ||
+          isNaN(finalUsers) ||
+          initialUsers <= finalUsers
+        ) {
+          document.getElementById("churnRateResult").innerHTML =
+            "Please enter valid input.";
+          return;
+        }
+
+        var churnRate = ((initialUsers - finalUsers) / initialUsers) * 100;
+        document.getElementById("churnRateResult").innerHTML =
+          "Churn Rate: " + churnRate.toFixed(2) + "%";
+      }
+
+      // Approximate Price Calculator
+      function calculateApproximateYearlyPrice() {
+        var clvApprox = parseFloat(document.getElementById("clvApprox").value);
+
+        if (isNaN(clvApprox)) {
+          document.getElementById("approximatePriceResult").innerHTML =
+            "Please enter valid input.";
+          return;
+        }
+
+        var churnRate = 80.67; // Provided churn rate in percentage
+        var yearlyPrice = clvApprox / (churnRate / 100);
+        document.getElementById("approximatePriceResult").innerHTML =
+          "Approximate Yearly Price: $" + yearlyPrice.toFixed(2);
+      }
+
+      // Lifetime Plan Price Calculator
+      function calculateLifetimePlanPrice() {
+        var yearlyPrice = parseFloat(
+          document.getElementById("lpYearlyPrice").value
+        );
+
+        if (isNaN(yearlyPrice)) {
+          document.getElementById("lifetimePlanResult").innerHTML =
+            "Please enter valid input.";
+          return;
+        }
+
+        var churnRate = parseFloat(
+          document.getElementById("clvChurnRate").value
+        );
+
+        if (isNaN(churnRate)) {
+          document.getElementById("lifetimePlanResult").innerHTML =
+            "Please calculate churn rate first.";
+          return;
+        }
+
+        var clv = yearlyPrice / (churnRate / 100);
+        var lifetimePlanPrice = clv * yearlyPrice;
+        document.getElementById("lifetimePlanResult").innerHTML =
+          "Lifetime Plan Price: $" + lifetimePlanPrice.toFixed(2);
+      }
+
+      // Accordion script
+      var acc = document.getElementsByClassName("accordion");
+      var i;
+
+      for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+          this.classList.toggle("active");
+          var panel = this.nextElementSibling;
+          if (panel.style.display === "block") {
+            panel.style.display = "none";
+          } else {
+            panel.style.display = "block";
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
